@@ -1,5 +1,5 @@
-<html lang="en"><head>
-  <!-- <meta charset="UTF-8"> -->
+<html lang="en">
+<head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="refresh" content="3600">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
@@ -10,6 +10,16 @@
     body {
       background-color: #FFFDFD;
       font-family: 'Bai Jamjuree', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
     }
 
     .fontsize1 {
@@ -30,70 +40,43 @@
     }
   </style>
 </head>
-
 <body>
   <div class="container">
     <header>
-      <div class="row p-2">
-        <div class="col-2"><img src="./logo_tsm.png" alt="LOGO Tsm" width="100"></div>
-        <div class="col-10">
-          <h3 class="fs-1">การเฝ้าระวังสถานการณ์มลพิษทางอากาศ</h3>
-          <h2>รายงานคุณภาพอากาศ ประจำวันที่ 06 ธันวาคม 2567</h2>
-        </div>
-      </div>
+      <img height="46.75" width="159.75" alt="โลโก้โรงพยาบาล" src="https://www.tsm.go.th/wp-content/uploads/2021/01/Logo001-Copy-Copy-copy-1.png" class="mb-3">
+      <h3><strong>รายงานสถานการณ์คุณภาพอากาศ</strong></h3>
+      <h3 style="font-size: 15px;">โรงพยาบาลสมเด็จพระเจ้าตากสินมหาราช จ.ตาก</h3>
+      <div id="date-time" style="font-size: 15px;">กำลังโหลด...</div>
     </header>
     <hr>
     <section>
       <div class="row rounded rounded-4 p-4 mb-4" id="pm-widget" style="background-color: rgb(253, 192, 78);">
-        <div class="col-3 text-center">
-          <img src="./aqi_icon/ic-face-yellow.svg" width="200" alt="yellow" id="aqi-image" class="bg-white rounded-circle p-3 mt-4">
-        </div>
-        <div class="col-3 text-center text-white">
-          <h2 id="pm-aqi" class="fontsize2">86</h2>
+        <div class="col-12 text-center">
+          <img src="./aqi_icon/ic-face-yellow.svg" width="200" alt="yellow" id="aqi-image" class="bg-white rounded-circle p-3 mt-4 mb-3">
+          <h2 id="pm-aqi" class="fontsize2">59</h2>
           <h2 class="fontsize3">AQI</h2>
-        </div>
-        <div class="col text-center text-white">
           <h2 id="pm-title">คุณภาพอากาศปานกลาง</h2>
-          <p id="pm-text" class="fs-5">[ประชาชนทั่วไป] สามารถทำกิจกรรมกลางแจ้งได้ตามปกติ [ผู้ที่ต้องดูแลสุขภาพเป็นพิเศษ] หากมีอาการเบื้องต้น เช่น ไอ หายใจลำบาก ระคายเคือง ตา ควรลดระยะเวลาการทำกิจกรรมกลางแจ้ง</p>
+          <p id="pm-text" class="fs-5">[ประชาชนทั่วไป] สามารถทำกิจกรรมกลางแจ้งได้ตามปกติ</p>
         </div>
       </div>
       <div class="row text-center">
-        <div class="col-4 font-color1">
+        <div class="col-12 font-color1">
           <div class="border rounded rounded-4">
-            <h1 class="fontsize1 rounded-bottom rounded-4" style="background-color:#ebebeb;" id="pm-25">34</h1>
+            <h1 class="fontsize1 rounded-bottom rounded-4" style="background-color:#ebebeb;" id="pm-25">27</h1>
             <h2 class="fs-3">ค่า PM 2.5</h2>
             <h2 class="fs-5">(ไม่ควรเกิน 37.5 มคก./ลบม.)</h2>
           </div>
-        </div>
-        <div class="col-4 font-color1">
-          <div class="border rounded rounded-4">
-            <h1 class="fontsize1 rounded-bottom rounded-4" id="pm-10" style="background-color:#ebebeb;">38</h1>
-            <h2 class="fs-3">ค่า PM 10</h2>
-            <h2 class="fs-5">(ไม่ควรเกิน 120 มคก./ลบม.)</h2>
-          </div>
-        </div>
-        <div class="col-4 font-color1">
-          <div class="border rounded rounded-4">
-            <h1 class="fontsize1 rounded-bottom rounded-4" id="temp-value" style="background-color:#ebebeb;"></h1>
-            <h2 class="fs-3">อุณหภูมิ</h2>
-            <h2 class="fs-5">ปัจจุบัน</h2>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex align-items-end flex-column mt-4" style="height: 300px;">
-        <div class="p-2">
-          <p class="text-end fs-5">ปรับปรุงข้อมูล : <br><span id="logtime">2024-12-06 08:00:00</span></p>
-        </div>
-        <div class="p-2">
-          <p class="text-end fs-5">แหล่งที่มา: เครื่องตรวจวัดคุณภาพอากาศ Dust Boy (ม.เชียงใหม่)<br>จุดติดตั้ง: ชั้น 6 อาคารผู้ป่วยนอก (ประมวลผลทุก 1 ชม.)</p>
-        </div>
-        <div class="p-2">
-          <p class="text-end fs-4">กลุ่มงานอาชีวเวชกรรม<br>รพ.สมเด็จพระเจ้าตากสินมหาราช</p>
         </div>
       </div>
     </section>
   </div>
   <script>
+    function updateDateTime() {
+      const now = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      document.getElementById('date-time').textContent = now.toLocaleDateString('th-TH', options);
+    }
+
     function calculateAQI(Ci) {
       let Cmax, Cmin, Imax, Imin;
 
@@ -126,87 +109,47 @@
         throw new Error("Invalid PM2.5 concentration value");
       }
 
-      const AQI = ((Imax - Imin) / (Cmax - Cmin)) * (Ci - Cmin) + Imin;
-      return Math.round(AQI);
+      return Math.round(((Imax - Imin) / (Cmax - Cmin)) * (Ci - Cmin) + Imin);
     }
 
-    const aqiUrl = 'https://www.cmuccdc.org/api/ccdc/value/5030';
+    function updateAQIData() {
+      const apiURL = 'https://www.cmuccdc.org/api/ccdc/value/5030';
+      const apiaqiKey = 'b059a926-63b8-4527-8ef6-17af89a3399a';
+      const aqicity = 'Mae Sot';
+      fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+          const aqi = calculateAQI(data.pm25);
+          const rgbValue = data.th_color.split(",");
+          
+          document.getElementById('pm-aqi').textContent = `${aqi}`;
+          document.getElementById('pm-25').textContent = `${data.pm25}`;
+          document.getElementById('pm-title').textContent = `${data.th_title}`;
+          document.getElementById('pm-text').textContent = `${data.th_caption}`;
+          document.getElementById('pm-widget').style.backgroundColor = `rgb(${rgbValue[0]}, ${rgbValue[1]}, ${rgbValue[2]})`;
 
-    const apiaqiKey = 'b059a926-63b8-4527-8ef6-17af89a3399a';
-    const aqicity = 'Mae Sot';
-    fetch(`https://api.airvisual.com/v2/city?city=${aqicity}&state=tak&country=thailand&key=${apiaqiKey}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        const aqiTemp = data.data.current.weather.tp;
-        const aqiValueElement = document.getElementById('temp-value');
-        aqiValueElement.textContent = `${aqiTemp} °C`;
-      })
-      .catch(error => console.error(error));
+          const aqiImageElement = document.getElementById('aqi-image');
+          if (aqi > 200) {
+            aqiImageElement.src = './aqi_icon/ic-face-red.svg';
+            aqiImageElement.alt = 'red';
+          } else if (aqi > 100) {
+            aqiImageElement.src = './aqi_icon/ic-face-orange.svg';
+            aqiImageElement.alt = 'orange';
+          } else if (aqi > 50) {
+            aqiImageElement.src = './aqi_icon/ic-face-yellow.svg';
+            aqiImageElement.alt = 'yellow';
+          } else {
+            aqiImageElement.src = './aqi_icon/ic-face-green.svg';
+            aqiImageElement.alt = 'green';
+          }
+        })
+        .catch(error => console.error('Error fetching AQI data:', error));
+    }
 
-    // temp
-
-
-
-    fetch(aqiUrl)
-      .then(response => response.json())
-      .then(data => {
-        // const pm25 = data.pm25;
-        const aqi = calculateAQI(data.pm25);
-        const rgbValue = data.th_color;
-        const rgb = rgbValue.split(",");
-        // console.log(json)
-        // document.getElementById("pm-level").textContent = `PM2.5 | ${pm25} µg/m³`;
-        document.getElementById("pm-aqi").textContent = `${aqi}`;
-        document.getElementById("pm-10").textContent = `${data.pm10}`;
-        document.getElementById("logtime").textContent = `${data.log_datetime}`;
-        document.getElementById("pm-25").textContent = `${data.pm25}`;
-        document.getElementById("pm-title").textContent = `${data.th_title}`;
-        document.getElementById("pm-text").textContent = `${data.th_caption}`;
-        document.getElementById("pm-widget").style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-
-        const aqiImageElement = document.getElementById('aqi-image');
-        // if (aqi > 300) {
-        //   aqiImageElement.src = './aqi_icon/ic-face-maroon.svg';
-        //   aqiImageElement.alt = 'maroon';
-        // } else if (aqi > 200) {
-        //   aqiImageElement.src = './aqi_icon/ic-face-purple.svg';
-        //   aqiImageElement.alt = 'purple';
-        // } else if (aqi > 150) {
-        //   aqiImageElement.src = './aqi_icon/ic-face-red.svg';
-        //   aqiImageElement.alt = 'red';
-        // } else if (aqi > 100) {
-        //   aqiImageElement.src = './aqi_icon/ic-face-orange.svg';
-        //   aqiImageElement.alt = 'orange';
-        // } else if (aqi > 50) {
-        //   aqiImageElement.src = './aqi_icon/ic-face-yellow.svg';
-        //   aqiImageElement.alt = 'yellow';
-        // } else {
-        //   aqiImageElement.src = './aqi_icon/ic-face-green.svg';
-        //   aqiImageElement.alt = 'green-good';
-        // }
-
-        if (aqi >= 0 && aqi <= 25) {
-          aqiImageElement.src = './aqi_icon/ic-face-green.svg';
-          aqiImageElement.alt = 'purple';
-        } else if (aqi > 26 && aqi <= 50) {
-          aqiImageElement.src = './aqi_icon/ic-face-green.svg';
-          aqiImageElement.alt = 'yellow-moderate';
-        } else if (aqi > 51 && aqi <= 100) {
-          aqiImageElement.src = './aqi_icon/ic-face-yellow.svg';
-          aqiImageElement.alt = 'yellow';
-        } else if (aqi > 101 && aqi <= 200) {
-          aqiImageElement.src = './aqi_icon/ic-face-orange.svg';
-          aqiImageElement.alt = 'orange';
-        }  else {
-          aqiImageElement.src = './aqi_icon/ic-face-red.svg';
-          aqiImageElement.alt = 'red';
-        }
-
-      })
-      .catch(error => console.error(error));
+    updateDateTime();
+    setInterval(updateDateTime, 1000); // อัพเดตวันที่และเวลาทุก 1 วินาที
+    updateAQIData();
+    setInterval(updateAQIData, 60000); // อัพเดต AQI ทุก 60 วินาที
   </script>
-
-
-
-</body></html>
+</body>
+</html>
