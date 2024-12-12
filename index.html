@@ -62,7 +62,7 @@
       <img height="46.75" width="159.75" alt="โลโก้โรงพยาบาล" src="https://www.tsm.go.th/wp-content/uploads/2021/01/Logo001-Copy-Copy-copy-1.png" class="mb-3">
       <h3><strong>รายงานสถานการณ์คุณภาพอากาศ</strong></h3>
       <h3 style="font-size: 15px;">โรงพยาบาลสมเด็จพระเจ้าตากสินมหาราช จ.ตาก</h3>
-      <div id="date-time" style="font-size: 15px;">12 ธันวาคม 2567 เวลา 10:47:52</div>
+      <div id="date-time" style="font-size: 15px;">12 ธันวาคม 2567 เวลา 11:28:14</div>
     </header>
     <hr>
     <section>
@@ -78,13 +78,14 @@
           <h2 id="pm-title" class="fs-1">คุณภาพอากาศปานกลาง</h2>
           <hr>
 <p id="pm-text" style="font-size: 14px;">[ประชาชนทั่วไป] สามารถทำกิจกรรมกลางแจ้งได้ตามปกติ [ผู้ที่ต้องดูแลสุขภาพเป็นพิเศษ] หากมีอาการเบื้องต้น เช่น ไอ หายใจลำบาก ระคายเคือง ตา ควรลดระยะเวลาการทำกิจกรรมกลางแจ้ง</p>
-<br>
-<div style="text-align: center; color: black; font-size: 0.8rem;">
-    <span style="color: red;">กลุ่มเสี่ยง</span> : เด็กเล็ก หญิงตั้งครรภ์ ผู้สูงอายุ และผู้มีโรคประจำตัว
-</div>
+
+
         </div>
       </div>
-      <div class="row text-center">
+      <div style="text-align: center; color: black; font-size: 0.8rem;">
+    <span style="color: red;">กลุ่มเสี่ยง</span> : เด็กเล็ก หญิงตั้งครรภ์ ผู้สูงอายุ และผู้มีโรคประจำตัว
+</div><br>
+<div class="row text-center">
         <div class="col-12 font-color1">
           <div class="border rounded rounded-4">
             <h1 class="fontsize1 rounded-bottom rounded-4" style="background-color:#ebebeb; font-size: 2rem;">55</h1>
@@ -96,12 +97,6 @@
     </section>
   </div>
   <script>
-    function updateDateTime() {
-      const now = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-      document.getElementById('date-time').textContent = now.toLocaleDateString('th-TH', options);
-    }
-
     function calculateAQI(Ci) {
       let Cmax, Cmin, Imax, Imin;
 
@@ -134,52 +129,90 @@
         throw new Error("Invalid PM2.5 concentration value");
       }
 
-      return Math.round(((Imax - Imin) / (Cmax - Cmin)) * (Ci - Cmin) + Imin);
+      const AQI = ((Imax - Imin) / (Cmax - Cmin)) * (Ci - Cmin) + Imin;
+      return Math.round(AQI);
     }
 
-    function updateAQIData() {
-      const apiURL = 'https://www.cmuccdc.org/api/ccdc/value/5030';
-      const apiaqiKey = 'b059a926-63b8-4527-8ef6-17af89a3399a';
-      const aqicity = 'Mae Sot';
-      fetch(apiURL)
-        .then(response => response.json())
-        .then(data => {
-          const aqi = calculateAQI(data.pm25);
-          const rgbValue = data.th_color.split(",");
-          
-          document.getElementById('pm-aqi').textContent = `${aqi}`;
-          document.getElementById('pm-25').textContent = `${data.pm25}`;
-          document.getElementById('pm-title').textContent = `${data.th_title}`;
-          document.getElementById('pm-text').textContent = `${data.th_caption}`;
-          document.getElementById('pm-widget').style.backgroundColor = `rgb(${rgbValue[0]}, ${rgbValue[1]}, ${rgbValue[2]})`;
+    const aqiUrl = 'https://www.cmuccdc.org/api/ccdc/value/5030';
 
-          const aqiImageElement = document.getElementById('aqi-image');
-          if (aqi > 200) {
-            aqiImageElement.src = './aqi_icon/ic-face-red.svg';
-            aqiImageElement.alt = 'red';
-          } else if (aqi > 100) {
-            aqiImageElement.src = './aqi_icon/ic-face-orange.svg';
-            aqiImageElement.alt = 'orange';
-          } else if (aqi > 50) {
-            aqiImageElement.src = './aqi_icon/ic-face-yellow.svg';
-            aqiImageElement.alt = 'yellow';
-          } else {
-            aqiImageElement.src = './aqi_icon/ic-face-green.svg';
-            aqiImageElement.alt = 'green';
-          }
-        })
-        .catch(error => console.error('Error fetching AQI data:', error));
-    }
+    const apiaqiKey = 'b059a926-63b8-4527-8ef6-17af89a3399a';
+    const aqicity = 'Mae Sot';
+    fetch(`https://api.airvisual.com/v2/city?city=${aqicity}&state=tak&country=thailand&key=${apiaqiKey}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const aqiTemp = data.data.current.weather.tp;
+        const aqiValueElement = document.getElementById('temp-value');
+        aqiValueElement.textContent = `${aqiTemp} °C`;
+      })
+      .catch(error => console.error(error));
 
-    updateDateTime();
-    setInterval(updateDateTime, 1000); // อัพเดตวันที่และเวลาทุก 1 วินาที
-    updateAQIData();
-    setInterval(updateAQIData, 60000); // อัพเดต AQI ทุก 60 วินาที
+    // temp
+
+
+
+    fetch(aqiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // const pm25 = data.pm25;
+        const aqi = calculateAQI(data.pm25);
+        const rgbValue = data.th_color;
+        const rgb = rgbValue.split(",");
+        // console.log(json)
+        // document.getElementById("pm-level").textContent = `PM2.5 | ${pm25} µg/m³`;
+        document.getElementById("pm-aqi").textContent = `${aqi}`;
+        document.getElementById("pm-10").textContent = `${data.pm10}`;
+        document.getElementById("logtime").textContent = `${data.log_datetime}`;
+        document.getElementById("pm-25").textContent = `${data.pm25}`;
+        document.getElementById("pm-title").textContent = `${data.th_title}`;
+        document.getElementById("pm-text").textContent = `${data.th_caption}`;
+        document.getElementById("pm-widget").style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+
+        const aqiImageElement = document.getElementById('aqi-image');
+        // if (aqi > 300) {
+        //   aqiImageElement.src = './aqi_icon/ic-face-maroon.svg';
+        //   aqiImageElement.alt = 'maroon';
+        // } else if (aqi > 200) {
+        //   aqiImageElement.src = './aqi_icon/ic-face-purple.svg';
+        //   aqiImageElement.alt = 'purple';
+        // } else if (aqi > 150) {
+        //   aqiImageElement.src = './aqi_icon/ic-face-red.svg';
+        //   aqiImageElement.alt = 'red';
+        // } else if (aqi > 100) {
+        //   aqiImageElement.src = './aqi_icon/ic-face-orange.svg';
+        //   aqiImageElement.alt = 'orange';
+        // } else if (aqi > 50) {
+        //   aqiImageElement.src = './aqi_icon/ic-face-yellow.svg';
+        //   aqiImageElement.alt = 'yellow';
+        // } else {
+        //   aqiImageElement.src = './aqi_icon/ic-face-green.svg';
+        //   aqiImageElement.alt = 'green-good';
+        // }
+
+        if (aqi >= 0 && aqi <= 25) {
+          aqiImageElement.src = './aqi_icon/ic-face-green.svg';
+          aqiImageElement.alt = 'purple';
+        } else if (aqi > 26 && aqi <= 50) {
+          aqiImageElement.src = './aqi_icon/ic-face-green.svg';
+          aqiImageElement.alt = 'yellow-moderate';
+        } else if (aqi > 51 && aqi <= 100) {
+          aqiImageElement.src = './aqi_icon/ic-face-yellow.svg';
+          aqiImageElement.alt = 'yellow';
+        } else if (aqi > 101 && aqi <= 200) {
+          aqiImageElement.src = './aqi_icon/ic-face-orange.svg';
+          aqiImageElement.alt = 'orange';
+        }  else {
+          aqiImageElement.src = './aqi_icon/ic-face-red.svg';
+          aqiImageElement.alt = 'red';
+        }
+
+      })
+      .catch(error => console.error(error));
   </script>
 
 
 
-<div class="container">
+<div class="container" style="font-size:14px;">
 <p>คลินิกมลพิษ <span style="color: orange;">ออนไลน์</span> รพ.สมเด็จพระเจ้าตากสินมหาราช<br>
 
 <a href="https://www.example.com">ประเมินอาการจากการสัมผัสสิ่งแวดล้อม PM2.5 | คลิก</a></p>
